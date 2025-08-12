@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск и создание заказа</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 2em;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        button {
+            padding: 0.5em 1em;
+            margin-right: 1em;
+        }
+
+        pre {
+            background: #f0f0f0;
+            padding: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Поиск заказа</h1>
+    <input id="order_id" placeholder="Введите Order UID">
+    <button onclick="searchOrder()">Найти</button>
+    <pre id="result"></pre>
+
+    <hr>
+
+    <h1>Создать заказ</h1>
+    <textarea id="order_json" rows="15" placeholder="Вставьте JSON заказа сюда"></textarea>
+    <button onclick="createOrder()">Отправить</button>
+    <pre id="create_result"></pre>
+
+    <script>
+        function searchOrder() {
+            const id = document.getElementById("order_id").value.trim();
+            if (!id) return alert("Введите UID");
+
+            fetch("/order/" + id)
+                .then(res => {
+                    if (!res.ok) throw new Error("Не найден");
+                    return res.json();
+                })
+                .then(data => {
+                    document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(err => {
+                    document.getElementById("result").textContent = "Ошибка: заказ не найден.";
+                });
+        }
+
+        function createOrder() {
+            const raw = document.getElementById("order_json").value.trim();
+            if (!raw) return alert("Вставьте JSON заказа");
+
+            let parsed;
+            try {
+                parsed = JSON.parse(raw);
+            } catch (e) {
+                return alert("Некорректный JSON");
+            }
+
+            fetch("/order", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(parsed)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("create_result").textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(err => {
+                    document.getElementById("create_result").textContent = "Ошибка при создании заказа.";
+                });
+        }
+    </script>
+</body>
+
+</html>

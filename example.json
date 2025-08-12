@@ -1,0 +1,59 @@
+{
+    "entry": "entry",
+    "locale": "locale",
+    "internal_signature": "internal_signature",
+    "customer_id": "customer_id",
+    "delivery_service": "deliv_service",
+    "shardkey": "shardkey",
+    "sm_id": 1,
+    "date_created": "2019-08-08T12:00:00Z",
+    "oof_shard": "oof_shard",
+    "delivery": {
+        "name": "name",
+        "phone": "phone",
+        "zip": "zip",
+        "city": "city",
+        "address": "address",
+        "region": "region",
+        "email": "email"
+    },
+    "payment": {
+        "transaction": "transaction",
+        "request_id": "request_id",
+        "currency": "currency",
+        "provider": "provider",
+        "amount": 1,
+        "payment_dt": "2020-01-02T11:00:00Z",
+        "bank": "bank",
+        "delivery_cost": 1,
+        "goods_total": 1,
+        "custom_fee": 1
+    },
+    "items": [
+        {
+            "chrt_id": 1,
+            "track_number": "track_number_1",
+            "price": 1,
+            "rid": "rid_1",
+            "name": "name_1",
+            "sale": 1,
+            "size": "size_1",
+            "total_price": 1,
+            "nm_id": 1,
+            "brand": "brand_1",
+            "status": 1
+        }, {
+            "chrt_id": 2,
+            "track_number": "track_number_2",
+            "price": 2,
+            "rid": "rid_2",
+            "name": "name_2",
+            "sale": 2,
+            "size": "size_2",
+            "total_price": 2,
+            "nm_id": 2,
+            "brand": "brand_2",
+            "status": 2
+        }
+    ]
+}
