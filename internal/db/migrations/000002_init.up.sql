@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS payments (
     currency TEXT,
     provider TEXT,
     amount INT,
-    payment_dt TIMESTAMP,
+    payment_dt INT,
     bank TEXT,
     delivery_cost INT,
     goods_total INT,
@@ -71,31 +71,31 @@ INSERT INTO orders (
     order_uid, track_number, entry, locale, internal_signature, customer_id,
     delivery_service, shardkey, sm_id, date_created, oof_shard
 ) VALUES (
-    'b563feb7b2b84b6test', 'WBILMTESTTRACK', 'WBIL', 'en', '', 'test_customer',
-    'meest', 'ab', 99, now(), '1'
+    'b563feb7b2b84b6test', 'WBILMTESTTRACK', 'WBIL', 'en', '', 'test',
+    'meest', '9', 99, '2021-11-26T06:22:19Z', '1'
 );
 INSERT INTO deliveries (
     delivery_uid, order_uid, name, phone, zip, city, address, region, email
 ) VALUES (
-    'delivery1','b563feb7b2b84b6test', 'Иван Иванов', '+79991234567', '123456', 'Москва',
-    'ул. Ленина, 1', 'Московская область', 'ivan@example.com'
+    'delivery_uid_1','b563feb7b2b84b6test', 'Test Testov', '+9720000000', '2639809', 'Kiryat Mozkin',
+    'Ploshad Mira 15', 'Kraiot', 'test@gmail.com'
 );
 INSERT INTO payments (
     payment_uid, order_uid, transaction, request_id, currency, provider, amount,
     payment_dt, bank, delivery_cost, goods_total, custom_fee
 ) VALUES (
-    'payment1', 'b563feb7b2b84b6test', 'trans123', '', 'RUB', 'visa', 1000,
-    now(), 'Сбербанк', 100, 900, 0
+    'payment_uid_1', 'b563feb7b2b84b6test', 'b563feb7b2b84b6test', '', 'USD', 'wbpay', 1817,
+    1637907727, 'Сбербанк', 1500, 317, 0
 );
 INSERT INTO items (
     item_uid, chrt_id, track_number, price, rid, name, sale,
     size, total_price, nm_id, brand, status
 ) VALUES (
-    'item1', 123456, 'WBILMTESTTRACK', 500, 'rid123', 'Куртка', 10,
-    'M', 450, 987654, 'Nike', 202
+    'item_uid_1', 9934930, 'WBILMTESTTRACK', 453, 'ab4219087a764ae0btest', 'Mascaras', 30,
+    '0', 317, 2389212, 'Vivienne Sabo', 202
 );
 INSERT INTO order_items (order_id, item_id)
-VALUES ('b563feb7b2b84b6test', 'item1');
+VALUES ('b563feb7b2b84b6test', 'item_uid_1');
 
 
 -- +goose Down 

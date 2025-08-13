@@ -4,10 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"go-postgres-docker/internal/model"
-	"go-postgres-docker/internal/repository"
 	"go-postgres-docker/internal/cache"
 	"go-postgres-docker/internal/config"
+	"go-postgres-docker/internal/model"
+	"go-postgres-docker/internal/repository"
 	"log"
 	"time"
 	kgo "github.com/segmentio/kafka-go"
@@ -87,12 +87,12 @@ func StartConsumer(ctx context.Context, cfg *config.Config, repo *repository.Ord
 			continue
 		}
 
-		// Если в incoming нет времени - проставим текущее время (чтобы не было нулевой даты)
+		// Если нет времени, то проставляем текущее время
 		if order.DateCreated.IsZero() {
 			order.DateCreated = time.Now().UTC()
 		}
-		if order.Payment.PaymentDt.IsZero() {
-			order.Payment.PaymentDt = time.Now().UTC()
+		if order.Payment.PaymentDt == 0 {
+			order.Payment.PaymentDt = int(time.Now().Unix())
 		}
 
 		// Сохраняем в БД 
